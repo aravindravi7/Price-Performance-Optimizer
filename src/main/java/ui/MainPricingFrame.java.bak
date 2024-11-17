@@ -1,0 +1,62 @@
+package ui;
+
+import javax.swing.*;
+import java.awt.*;
+import controller.PricingController;
+import model.Business.Business;
+
+public class MainPricingFrame extends JFrame {
+    private Business business;
+    private PricingController controller;
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
+    private LoginPanel loginPanel;
+    private ProductPanel productPanel;
+    private AdminPanel adminPanel;
+    private CustomerPanel customerPanel;
+    
+    public MainPricingFrame(Business business, PricingController controller) {
+        this.business = business;
+        this.controller = controller;
+        initializeFrame();
+        createComponents();
+        layoutComponents();
+    }
+    
+    private void initializeFrame() {
+        setTitle("Pricing Management System");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1200, 800);
+        setLocationRelativeTo(null);
+        
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
+        add(mainPanel);
+    }
+    
+    private void createComponents() {
+        loginPanel = new LoginPanel(cardLayout, mainPanel, business);
+        productPanel = new ProductPanel(controller);
+        adminPanel = new AdminPanel(business, controller);
+        customerPanel = new CustomerPanel(business, controller);
+    }
+    
+    private void layoutComponents() {
+        mainPanel.add(loginPanel, "LOGIN");
+        mainPanel.add(productPanel, "SUPPLIER");  // Using ProductPanel for supplier view
+        mainPanel.add(adminPanel, "ADMIN");
+        mainPanel.add(customerPanel, "CUSTOMER");
+        
+        // Start with login panel
+        cardLayout.show(mainPanel, "LOGIN");
+        
+        // Add a global logout button
+        JPanel logoutPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton logoutButton = new JButton("Logout");
+        logoutButton.addActionListener(e -> cardLayout.show(mainPanel, "LOGIN"));
+        logoutPanel.add(logoutButton);
+        
+        // Add logout panel to the frame
+        add(logoutPanel, BorderLayout.NORTH);
+    }
+} 

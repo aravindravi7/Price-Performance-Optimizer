@@ -1,0 +1,29 @@
+{
+  "business": {
+    "name": "Auto Sales Business",
+    "currency": "USD"
+  },
+  "suppliers": [
+    {
+      "name": "AutoElite Motors",
+      "products": [
+        {
+          "name": "Luxury Sedan Model A",
+          "category": "Luxury",
+          "basePrice": 45000.00,
+          "cost": 35000.00
+        }
+        // ... more products
+      ]
+    }
+    // ... more suppliers
+  ],
+  "customers": [
+    {
+      "name": "Luxury Car Dealership",
+      "type": "DEALER",
+      "preferredCategories": ["Luxury", "Mid-Luxury"]
+    }
+    // ... more customers
+  ]
+} 
